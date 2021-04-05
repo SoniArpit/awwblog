@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %} - {{post.title}}{% endblock title %}
+
+{% block content %}
+<article>
+    <figure>
+        <img src="{{ post.image.url }}" class="rounded featured-image-list" alt="{{post.title}}">
+    </figure>
+
+    <div class="mt-3">
+        <h1>{{post.title}}</h1>
+        <p class="text-muted">
+            Published {{ post.publish.date }} by <strong>{{ post.author }}</strong>
+        </p>
+    </div>
+
+    <div class="article-body">
+        {{post.body|safe}}
+    </div>
+
+    <p>
+        <strong>Tags:</strong>
+        {% for tag in post.tags.all %}
+        <a href="{% url 'blog:post_tag' tag.slug %}" class="link-light text-decoration-none badge bg-secondary">
+            {{tag.name}}
+        </a>
+        <!-- {% if not forloop.last %}, {% endif %} -->
+        {% endfor %}
+    </p>
+
+</article>
+
+<hr />
+
+<div class="my-3">
+    <h3>Similar Posts</h3>
+</div>
+<div class="row">
+    {% for post in similar_posts %}
+    <div class="col-md-6 col-sm-6 col-lg-4 mb-3">
+        <div class="card border-0">
+            <div class="ratio ratio-16x9">
+                <img src="{{ post.image.url }}" class="rounded featured-image-list" alt="{{post.title}}">
+            </div>
+            <div class="card-body p-0 m-0 mt-2">
+                <h2 class="card-title h6 my-0 py-0">
+                    <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                </h2>
+                <p class="card-text">
+                    <small class="text-muted">
+                        <span>{{post.publish.date}} by
+                            <b>{{post.author}}</b></span>
+
+                        <!-- <a href="" class="badge badge-light text-muted">{{post.tags.all|join:" "}}</a> -->
+
+
+                    </small>
+                </p>
+                <!-- <p>{{post.body|truncatechars:100|linebreaks}}</p> -->
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-muted">There is no similar post yet</p>
+    {% endfor %}
+</div>
+
+
+
+
+<hr />
+<h3>Add Comment</h3>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit" class="btn btn-primary">Comment</button>
+</form>
+
+
+{% with comments.count as total_comments %}
+<h3 class="mt-5">
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+</h3>
+{% endwith %}
+
+{% if not post.comments.all %}
+No comments yet
+
+{% else %}
+{% for comment in post.get_comments %}
+{% include 'comment.html' with comment=comment %}
+{% endfor %}
+{% endif %}
+
+{% endblock content %}
