@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'taggit',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'rest_framework',
+    'taggit_serializer',
 ]
 
 MIDDLEWARE = [

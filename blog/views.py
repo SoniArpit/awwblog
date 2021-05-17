@@ -5,6 +5,14 @@ from .forms import CommentForm
 from taggit.models import Tag
 from django.db.models import Count
 from django.db.models import Q
+from django.views.generic import ListView, DetailView
+
+class PostList(ListView):
+    model = Post
+    # paginate_by="5"
+    queryset=Post.published.all()
+    context_object_name = "posts"
+    template_name = "post_list.html"
 
 def post_list(request, tag_slug=None):
     posts = Post.published.all()
@@ -35,6 +43,12 @@ def post_list(request, tag_slug=None):
    
         
     return render(request,'post_list.html',{'posts':posts, page:'pages', 'tag':tag})
+
+
+class PostDetail(DetailView):
+    model = Post
+    context_object_name = "post"
+    template_name = "post_detail.html"
 
 def post_detail(request, post):
     post=get_object_or_404(Post,slug=post,status='published')
