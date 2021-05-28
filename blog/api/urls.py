@@ -3,8 +3,16 @@ app_name = "blog_api"
 from . import views
 
 urlpatterns = [
-    path('', views.PostListAPIView.as_view(), name="post_list_api"),
-    path('comments/',views.CommentListAPIView.as_view(), name="comments_api"),
-    path('<slug:slug>/', views.PostDetailAPIView.as_view(), name="post_detail_api"),
+    path('', views.home),
+    path('post-create/', views.post_blogpost),
+    path('post-update/<int:id>/', views.update_blogpost),
+    path('post-delete/<int:id>/', views.delete_blogpost),
+
+
+
+    
+    # path('', views.PostListAPIView.as_view(), name="post_list_api"),
+    # path('comments/',views.CommentListAPIView.as_view(), name="comments_api"),
+    # path('<slug:slug>/', views.PostDetailAPIView.as_view(), name="post_detail_api"),
 
 ]

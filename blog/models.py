@@ -22,7 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     
-    image = models.ImageField(upload_to='featured_image/%Y/%m/%d/') #this
+    image = models.ImageField(upload_to='featured_image/%Y/%m/%d/', blank=True, null=True) #this
 
     author = models.ForeignKey(User,on_delete=models.CASCADE,related_name='blog_posts')
     # body = models.TextField() # remove this 
