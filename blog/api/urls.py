@@ -3,11 +3,7 @@ app_name = "blog_api"
 from . import views
 
 urlpatterns = [
-    path('', views.home),
-    path('post-create/', views.post_blogpost),
-    path('post-update/<int:id>/', views.update_blogpost),
-    path('post-delete/<int:id>/', views.delete_blogpost),
-
+    path('', views.PostAPIView.as_view()),
 
 
     

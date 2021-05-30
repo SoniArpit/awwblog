@@ -10,7 +10,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostListSerializer(TaggitSerializer,serializers.ModelSerializer):
     # slug = HyperlinkedIdentityField(view_name='blog_api:post_detail_api',lookup_field='slug')
     tags = TagListSerializerField()
-    comments = CommentSerializer(many=True)
+    # comments = CommentSerializer(many=True)
     class Meta:
         model = Post
         fields =[
@@ -23,7 +23,7 @@ class PostListSerializer(TaggitSerializer,serializers.ModelSerializer):
             "publish",
             "status",
             "tags",
-            "comments"
+            # "comments"
         ]
     
     def validate(self, data):
