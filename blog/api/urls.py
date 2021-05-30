@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.PostAPIView.as_view()),
+    path('register/',views.RegisterUser.as_view())
 
 
     

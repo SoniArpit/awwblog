@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'rest_framework',
     'taggit_serializer',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -207,3 +208,10 @@ CKEDITOR_CONFIGS = {
 
 
 TAGGIT_CASE_INSENSITIVE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
