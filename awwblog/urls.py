@@ -22,6 +22,10 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap #this
 from blog.sitemaps import PostSitemap #this
 from rest_framework.authtoken import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 #this
 sitemaps = {
@@ -30,7 +34,10 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', views.obtain_auth_token),
+    
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     path('', include('blog.urls', namespace='blog')),
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'), #this

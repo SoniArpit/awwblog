@@ -10,6 +10,9 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 class RegisterUser(APIView):
     def post(self, request):
@@ -21,13 +24,14 @@ class RegisterUser(APIView):
         serializer.save()
 
         user = User.objects.get(username=serializer.data['username'])
-        token_obj, _ =Token.objects.get_or_create(user=user)
+        refresh = RefreshToken.for_user(user)
 
-        return Response({"status": 200,"token":str(token_obj), "msg": "posted successfully"})
+        return Response({"status": 200,'refresh': str(refresh),
+        'access': str(refresh.access_token), "msg": "posted successfully"})
 
 
 class PostAPIView(APIView):
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
