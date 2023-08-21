@@ -8,6 +8,11 @@ Install the dependencies
 
 ```
 
+## Admin site
+
+- **Username** : demo
+- **Password** : 12345678
+
 Tutorial covers,
 
 - Installation and setup
