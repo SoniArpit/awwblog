@@ -1,5 +1,13 @@
 # awwblog
 
+## Installation setup
+
+Install the dependencies
+```bash
+    pip3 install -r requirements.txt
+
+```
+
 Tutorial covers,
 
 - Installation and setup
