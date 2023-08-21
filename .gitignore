@@ -1,0 +1,4 @@
+# Exclude add virtual environments from repo
+virtualenv/
+venv/
+virt/
